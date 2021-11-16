@@ -177,7 +177,7 @@ export const getCategories = async () => {
 export const getComments = async (slug) => {
     const query = gql`
         query GetComments($slug: String!) {
-           comments(where: {post: { slug: $slug } }) {
+           comments(where: {post: { slug: $slug } }, orderBy: createdAt_DESC) {
                name
                createdAt
                comment

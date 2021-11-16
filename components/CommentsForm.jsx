@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { submitComment } from '../services';
+import { useRouter } from 'next/router';
+
 
 const CommentsForm = ({ slug }) => {
+
+  const router = useRouter();
+  // Call this function whenever you want to
+  // refresh props!
+  const refreshData = () => {
+    router.replace(router.asPath);
+  }
+
+
   const [error, setError] = useState(false);
   const [localStorage, setLocalStorage] = useState(null);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -56,7 +67,7 @@ const CommentsForm = ({ slug }) => {
 
     submitComment(commentObj)
       .then((res) => {
-        if (res.createComment) {
+        if (res.publishComment) {
           if (!storeData) {
             formData.name = '';
             formData.email = '';
@@ -69,7 +80,8 @@ const CommentsForm = ({ slug }) => {
           setShowSuccessMessage(true);
           setTimeout(() => {
             setShowSuccessMessage(false);
-          }, 3000);
+          }, 4000);
+          router.reload(window.location.pathname)
         }
       });
   };

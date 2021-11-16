@@ -16,8 +16,8 @@ export default async function asynchandler(req, res) {
   });
 
   const query = gql`
-    mutation PublishComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
-      publishComment(data: {name: $name, email: $email, comment: $comment, post: {connect: {slug: $slug}}}) { id }
+    mutation CreateComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
+      createComment(data: {name: $name, email: $email, comment: $comment, post: {connect: {slug: $slug}}}) { id }
     }
   `;
 
@@ -27,6 +27,18 @@ export default async function asynchandler(req, res) {
     comment: req.body.comment,
     slug: req.body.slug,
   });
+  var commentID = result.createComment.id; 
 
-  return res.status(200).send(result);
+  const query2 = gql`
+    mutation PublishComment($commentID: ID!) {
+      publishComment(where: {id: $commentID}, to: PUBLISHED) {
+        id
+      }
+  }
+
+  `;
+
+  const result2 = await graphQLClient.request(query2, { commentID });
+  console.log(result2)
+  return res.status(200).send(result2);
 }
