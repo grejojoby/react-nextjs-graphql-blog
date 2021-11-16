@@ -16,8 +16,8 @@ export default async function asynchandler(req, res) {
   });
 
   const query = gql`
-    mutation CreateComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
-      createComment(data: {name: $name, email: $email, comment: $comment, post: {connect: {slug: $slug}}}) { id }
+    mutation PublishComment($name: String!, $email: String!, $comment: String!, $slug: String!) {
+      publishComment(data: {name: $name, email: $email, comment: $comment, post: {connect: {slug: $slug}}}) { id }
     }
   `;
 
