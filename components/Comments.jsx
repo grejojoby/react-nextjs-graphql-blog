@@ -5,16 +5,16 @@ import { getComments } from '../services';
 import { comment } from 'postcss';
 
 
-const Comments = ({ slug }) => {
+const Comments = ({ slug, commentsData }) => {
     const [comments, setComments] = useState([]);
 
     useEffect(() => {
         getComments(slug).then((result) => setComments(result))
-    }, [])
+    }, [comments])
     
     return (
         <>
-            {comment.length > 0 && (
+            {comments.length > 0 && (
                 <div className="bg-white shadow-lg rounded-lg p-8 pb-12 mb-8">
                     <h3 className="text-xl mb-8 font-semibold border-b pb-4">
                         {comments.length}
@@ -42,3 +42,11 @@ const Comments = ({ slug }) => {
 }
 
 export default Comments
+
+export async function getServerSideProps(slug) {
+    const commentsData = (await getComments(slug)) || [];
+  
+    return {
+      props: { slug, commentsData }
+    }
+  }

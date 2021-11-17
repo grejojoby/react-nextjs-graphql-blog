@@ -8,9 +8,9 @@ const CommentsForm = ({ slug }) => {
   const router = useRouter();
   // Call this function whenever you want to
   // refresh props!
-  const refreshData = () => {
-    router.replace(router.asPath);
-  }
+  // const refreshData = () => {
+  //   router.replace(router.asPath);
+  // }
 
 
   const [error, setError] = useState(false);
@@ -81,7 +81,7 @@ const CommentsForm = ({ slug }) => {
           setTimeout(() => {
             setShowSuccessMessage(false);
           }, 4000);
-          router.reload(window.location.pathname)
+          // router.reload(window.location.pathname)
         }
       });
   };

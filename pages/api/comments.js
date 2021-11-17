@@ -39,6 +39,5 @@ export default async function asynchandler(req, res) {
   `;
 
   const result2 = await graphQLClient.request(query2, { commentID });
-  console.log(result2)
   return res.status(200).send(result2);
 }
