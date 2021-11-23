@@ -8,7 +8,7 @@ import { comment } from 'postcss';
 const Comments = ({ slug, commentsData }) => {
     const [comments, setComments] = useState([]);
 
-    useEffect(() => {
+    useEffect((slug) => {
         getComments(slug).then((result) => setComments(result))
     }, [comments])
     
